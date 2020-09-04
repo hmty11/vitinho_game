@@ -17,17 +17,16 @@ class vitinho_feeding implements Screen {
 
     //graphics
     private SpriteBatch batch;
-
     private Texture background;
-    private Texture[] vitinhos;
+//    private Texture[] vitinhos;
 
     //Vitinho creation
     private Vitinho vitinho;
-
-    int vitinho_state = 0;
+    int vitinho_state = 1;
     int pause = 0;
     private final int WORLD_WIDTH = 72;
     private final int WORLD_HEIGHT = 128;
+
 
     vitinho_feeding()
     {
@@ -35,17 +34,17 @@ class vitinho_feeding implements Screen {
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 
 
-        vitinhos = new Texture[4];
-
-        vitinhos[0] = new Texture("frame-1.png");
-        vitinhos[1] = new Texture("frame-2.png");
-        vitinhos[2] = new Texture("frame-3.png");
-        vitinhos[3] = new Texture("frame-4.png");
+//        vitinhos = new Texture[4];
+//
+//        vitinhos[0] = new Texture("frame-1.png");
+//        vitinhos[1] = new Texture("frame-2.png");
+//        vitinhos[2] = new Texture("frame-3.png");
+//        vitinhos[3] = new Texture("frame-4.png");
 
         background = new Texture("mmbg.jpg");
 
         //set up vitinho
-        vitinho = new Vitinho(0, 5,1,WORLD_WIDTH, WORLD_HEIGHT, vitinhos[0]);
+        vitinho = new Vitinho(0, 5,1,0, 0, vitinho_state, WORLD_WIDTH, WORLD_HEIGHT);
         batch = new SpriteBatch();
 
     }
@@ -53,30 +52,29 @@ class vitinho_feeding implements Screen {
     @Override
     public void render(float delta)
     {
-        if(pause < 8)
-        {
-            pause++;
-        }
-        else
-        {
-            pause = 0;
-            if(vitinho_state < 3)
-            {
-                vitinho_state++;
-            }
-            else
-            {
-                vitinho_state = 0;
-            }
-        }
+//        if(pause < 8)
+//        {
+//            pause++;
+//        }
+//        else
+//        {
+//            pause = 0;
+//            if(vitinho_state < 3)
+//            {
+//                vitinho_state++;
+//            }
+//            else
+//            {
+//                vitinho_state = 0;
+//            }
+//        }
 
         batch.begin();
-        //batch.draw(background,0,0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         batch.draw(background,0,0, WORLD_WIDTH,WORLD_HEIGHT);
-
+        //batch.draw(vitinhos[vitinho_state],0,0, WORLD_WIDTH/2,WORLD_HEIGHT/2);
         //display vitinho
-        //vitinho.draw(batch);
-        //batch.draw(vitinhos[vitinho_state],WORLD_WIDTH/2,WORLD_HEIGHT/2);
+        vitinho.draw(batch);
+        //batch.draw(vitinhos[vitinho_state],WORLD_WIDTH,WORLD_HEIGHT);
         //batch.draw(vitinhos[vitinho_state],Gdx.graphics.getWidth()/2 - vitinhos[vitinho_state].getWidth()/2,Gdx.graphics.getHeight()/2);
         batch.end();
 
