@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.vitinho.game.vitinho_game_main;
 
 
 
@@ -43,6 +42,7 @@ public class main_menu_screen implements Screen
         {
             if(Gdx.input.isTouched())
             {
+                Gdx.app.log("MyTag", "my informative message");
                 this.dispose();
                 game.setScreen(new vitinho_feeding());
             }

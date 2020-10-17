@@ -1,27 +1,29 @@
 package com.vitinho.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 class Vitinho
 {
+    final float WORLD_WIDTH = 72;
+    final float WORLD_HEIGHT = 128;
+
     //Vitinho state
-    int vitinho_hungry; // 0: not hungry, 3: starving.
+    static int vitinho_hungry; // 0: not hungry, 3: starving.
 
     //Vitinho Age
-    int vitinho_age;
+    static int vitinho_age;
 
     //Vitinho diseases
-    int vitinho_diseases; //need to creat a bunch of diseases.
+    static int vitinho_diseases; //need to creat a bunch of diseases.
 
     //Vitinho position
     float vitinho_position_x;
     float vitinho_position_y;
 
     //screen_size
-    int screen_width;
-    int screen_height;
+    float screen_width;
+    float screen_height;
 
     int pause = 0;
 
@@ -30,7 +32,7 @@ class Vitinho
     int vitinho_move;
     private Texture[] vitinhos;
 
-    public Vitinho(int vitinho_hungry, int vitinho_age, int vitinho_diseases, float vitinho_position_x , float vitinho_position_y, int vitinho_state, int screen_width, int screen_height)
+    public Vitinho(int vitinho_hungry, int vitinho_age, int vitinho_diseases, float vitinho_position_x , float vitinho_position_y, int vitinho_state, float screen_width, float screen_height)
     {
         this.vitinho_state = vitinho_state;
         this.vitinho_position_x = vitinho_position_x;
@@ -71,11 +73,7 @@ class Vitinho
                         vitinho_move = 0;
                     }
                 }
-
-                batch.draw(vitinhos[vitinho_move], vitinho_position_x, vitinho_position_y, screen_width/4, screen_height/4);
+                batch.draw(vitinhos[vitinho_move], screen_width/2 - 10, screen_height/2  - 20, screen_width/4, screen_height/4);
         }
-
-
-
     }
 }

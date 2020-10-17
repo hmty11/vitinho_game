@@ -12,8 +12,8 @@ public class vitinho_game_main extends Game
 	public void create ()
 	{
 		//Calls vitinho_feeding when app starts, button creation still needed
-//		vitinho_feeding = new vitinho_feeding();
-//		setScreen(vitinho_feeding);
+        //		vitinho_feeding = new vitinho_feeding();
+        //		setScreen(vitinho_feeding);
 
 		batch = new SpriteBatch();
 		this.setScreen(new main_menu_screen(this));
