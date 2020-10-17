@@ -24,6 +24,8 @@ class vitinho_feeding implements Screen {
     private Camera camera;
     private Viewport viewport;
 
+    Vector3 touch_pos = new Vector3();
+
     //graphics
     private SpriteBatch batch;
     private Texture background;
@@ -94,13 +96,11 @@ class vitinho_feeding implements Screen {
         vitinho.draw(batch);
         batch.draw(vitinho_feed_buton_1,  WORLD_WIDTH/2, WORLD_HEIGHT/20, vitinho_feed_buton_1_width/10, vitinho_feed_buton_1_height/10);
         Vector3 vitinho_feed_buton_1_position = new Vector3(WORLD_WIDTH/2, WORLD_HEIGHT/20, 0);
-        Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-        camera.unproject(touchPos);
-//        if(Gdx.input.getX() < Gdx.graphics.getWidth()/2 + vitinho_feed_buton_1_width && Gdx.input.getX() > Gdx.graphics.getWidth()/2 &&
-//                Gdx.graphics.getHeight() - Gdx.input.getY() < Gdx.graphics.getHeight()/20 + vitinho_feed_buton_1_height && Gdx.graphics.getHeight() - Gdx.input.getY() > Gdx.graphics.getHeight()/20 )
+        //Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        touch_pos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(touch_pos);
 
-
-        if(touchPos == vitinho_feed_buton_1_position)
+        if((WORLD_WIDTH/2 < touch_pos.x && touch_pos.x < WORLD_WIDTH/2 + vitinho_feed_buton_1_width/10) && (WORLD_HEIGHT/20  < touch_pos.y && touch_pos.y < WORLD_HEIGHT/20 + vitinho_feed_buton_1_height/10 ))
         {
             Gdx.app.log("MyTag", "my informative message");
             if (Gdx.input.isTouched())
