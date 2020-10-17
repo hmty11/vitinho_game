@@ -13,4 +13,7 @@ public class AndroidLauncher extends AndroidApplication {
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		initialize(new vitinho_game_main(), config);
 	}
+
+
+
 }
