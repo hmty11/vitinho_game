@@ -16,6 +16,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Locale;
 
+
+
 class vitinho_feeding implements Screen {
 
     vitinho_game_main game;
@@ -37,12 +39,23 @@ class vitinho_feeding implements Screen {
     int pause = 0;
     private final float WORLD_WIDTH = 72;
     private final float WORLD_HEIGHT = 128;
+    private final float margin = 10;
 
     //Buttons
+    //int first_touch = 0;
     //Button 1
     Texture vitinho_feed_buton_1;
-    float vitinho_feed_buton_1_width = 100;
-    float vitinho_feed_buton_1_height = 100;
+    float vitinho_feed_buton_1_width = 10;
+    float vitinho_feed_buton_1_height = 10;
+    float vitinho_feed_buton_1_x_position = WORLD_WIDTH/2 - vitinho_feed_buton_1_width/2;
+    float vitinho_feed_buton_1_y_position = WORLD_HEIGHT/20;
+
+    //Button 2
+    Texture vitinho_feed_buton_2;
+    float vitinho_feed_buton_2_width = 10;
+    float vitinho_feed_buton_2_height = 10;
+    float vitinho_feed_buton_2_x_position = WORLD_WIDTH - vitinho_feed_buton_1_width/2 - margin;
+    float vitinho_feed_buton_2_y_position = WORLD_HEIGHT/20;
 
     //Heads-Up Display
     BitmapFont font;
@@ -60,6 +73,7 @@ class vitinho_feeding implements Screen {
         batch = new SpriteBatch();
 
         vitinho_feed_buton_1 = new Texture("coin.png");
+        vitinho_feed_buton_2 = new Texture("coin.png");
         prepareHUD();
     }
 
@@ -92,30 +106,34 @@ class vitinho_feeding implements Screen {
     public void render(float delta)
     {
         batch.begin();
+        //Draw background
         batch.draw(background,0,0, WORLD_WIDTH,WORLD_HEIGHT);
+        //Draw vitinho
         vitinho.draw(batch);
-        batch.draw(vitinho_feed_buton_1,  WORLD_WIDTH/2, WORLD_HEIGHT/20, vitinho_feed_buton_1_width/10, vitinho_feed_buton_1_height/10);
-        Vector3 vitinho_feed_buton_1_position = new Vector3(WORLD_WIDTH/2, WORLD_HEIGHT/20, 0);
-        //Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        //Acquire touch position
         touch_pos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+        //translate the position (pixels) to cartesian coordinates
         camera.unproject(touch_pos);
 
-        if((WORLD_WIDTH/2 < touch_pos.x && touch_pos.x < WORLD_WIDTH/2 + vitinho_feed_buton_1_width/10) && (WORLD_HEIGHT/20  < touch_pos.y && touch_pos.y < WORLD_HEIGHT/20 + vitinho_feed_buton_1_height/10 ))
+        // render Button 1
+        batch.draw(vitinho_feed_buton_1,  vitinho_feed_buton_1_x_position, vitinho_feed_buton_1_y_position, vitinho_feed_buton_1_width, vitinho_feed_buton_1_height);
+        //Conditional to verify if the button 1 was pressed
+        if(touched_button(touch_pos, vitinho_feed_buton_1_x_position, vitinho_feed_buton_1_y_position, vitinho_feed_buton_1_width, vitinho_feed_buton_1_height))
         {
-            Gdx.app.log("MyTag", "my informative message");
-            if (Gdx.input.isTouched())
-            {
-                this.dispose();
-                Gdx.app.log("MyTag", "my informative message");
-                Vitinho.vitinho_hungry = Vitinho.vitinho_hungry + 10;
-            }
+            Vitinho.vitinho_hungry = Vitinho.vitinho_hungry + 10;
         }
-        //batch.draw(vitinhos[vitinho_state],0,0, WORLD_WIDTH/2,WORLD_HEIGHT/2);
-        //display vitinho
 
+        //render button 2
+        //Draw vitinho_feed_buton_2
+        batch.draw(vitinho_feed_buton_2,  vitinho_feed_buton_2_x_position, vitinho_feed_buton_2_y_position, vitinho_feed_buton_2_width, vitinho_feed_buton_2_height);
+        if(touched_button(touch_pos, vitinho_feed_buton_2_x_position, vitinho_feed_buton_2_y_position, vitinho_feed_buton_2_width, vitinho_feed_buton_2_height))
+        {
+            Vitinho.vitinho_age = Vitinho.vitinho_age + 10;
+        }
 
         //hud rendering
         updateAndRenderHUD();
+
         batch.end();
 
     }
@@ -131,6 +149,20 @@ class vitinho_feeding implements Screen {
         font.draw(batch, String.format(Locale.getDefault(), "%02d", Vitinho.vitinho_age), hudCentreX, hudRow2y, hudSectionWidth, Align.center, false);
         font.draw(batch,String.format(Locale.getDefault(), "%02d", Vitinho.vitinho_diseases), hudRightX, hudRow2y, hudSectionWidth, Align.right, false);
     }
+
+    private boolean touched_button(Vector3 touch_position,  float x_position, float y_position, float button_width, float button_height)
+    {
+        if((x_position < touch_position.x && touch_position.x < x_position + button_width) &&  //X
+                (y_position  < touch_position.y && touch_position.y < y_position + button_height )) //Y
+        {
+            if (Gdx.input.isTouched())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     @Override
     public void resize(int width, int height)
