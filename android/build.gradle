@@ -19,7 +19,7 @@ android {
     }
     defaultConfig {
         applicationId "com.vitinho.game"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -91,7 +91,8 @@ task run(type: Exec) {
 }
 
 dependencies {
-    implementation 'com.google.firebase:firebase-database:19.5.0'
+    implementation 'com.google.firebase:firebase-database:19.5.1'
+    implementation "pl.mk5.gdx-fireapp:gdx-fireapp-android:2.2.1"
 }
 
 eclipse.project.name = appName + "-android"
