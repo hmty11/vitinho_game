@@ -17,11 +17,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.Locale;
 
 
-
 class vitinho_feeding implements Screen {
-
     vitinho_game_main game;
-
     //camera
     private Camera camera;
     private Viewport viewport;
@@ -31,9 +28,10 @@ class vitinho_feeding implements Screen {
     //graphics
     private SpriteBatch batch;
     private Texture background;
-//    private Texture[] vitinhos;
+//  private Texture[] vitinhos;
 
     //Vitinho creation
+    Texture vitinho_hungry_bar_texture;
     private Vitinho vitinho;
     int vitinho_state = 1;
     int pause = 0;
@@ -57,9 +55,16 @@ class vitinho_feeding implements Screen {
     float vitinho_feed_buton_2_x_position = WORLD_WIDTH - vitinho_feed_buton_1_width/2 - margin;
     float vitinho_feed_buton_2_y_position = WORLD_HEIGHT/20;
 
+    //Button 3
+    Texture vitinho_feed_buton_3;
+    float vitinho_feed_buton_3_width = 10;
+    float vitinho_feed_buton_3_height = 10;
+    float vitinho_feed_buton_3_x_position = WORLD_WIDTH/3 - vitinho_feed_buton_1_width/2 - margin;
+    float vitinho_feed_buton_3_y_position = WORLD_HEIGHT/20;
+
     //Heads-Up Display
     BitmapFont font;
-    float hudVerticalMargin, hudLeftX, hudRightX, hudCentreX, hudRow1Y, hudRow2y, hudSectionWidth;
+    float hudVerticalMargin, hudLeftX, hudRightX, hudCentreX, hudRow1Y, hudRow2y, hudRow2y_bar, hudSectionWidth;
 
     vitinho_feeding()
     {
@@ -74,6 +79,8 @@ class vitinho_feeding implements Screen {
 
         vitinho_feed_buton_1 = new Texture("coin.png");
         vitinho_feed_buton_2 = new Texture("coin.png");
+        vitinho_feed_buton_3 = new Texture("coin.png");
+        vitinho_hungry_bar_texture = new Texture("blank.png");
         prepareHUD();
     }
 
@@ -93,12 +100,13 @@ class vitinho_feeding implements Screen {
         font.getData().setScale(0.1f);
 
         //Calculate hud margins, etc.
-        hudVerticalMargin = font.getCapHeight()/2;
+        hudVerticalMargin = font.getCapHeight()/2 ;
         hudLeftX = hudVerticalMargin;
         hudRightX = WORLD_WIDTH * 2 / 3 - hudLeftX;
         hudCentreX = WORLD_WIDTH / 3;
         hudRow1Y = WORLD_HEIGHT - hudVerticalMargin;
-        hudRow2y = WORLD_HEIGHT - hudVerticalMargin - font.getCapHeight();
+        hudRow2y = WORLD_HEIGHT - hudVerticalMargin - font.getCapHeight() - 1;
+        hudRow2y_bar =  WORLD_HEIGHT - hudVerticalMargin - 13;
         hudSectionWidth = WORLD_WIDTH / 3;
     }
 
@@ -115,12 +123,17 @@ class vitinho_feeding implements Screen {
         //translate the position (pixels) to cartesian coordinates
         camera.unproject(touch_pos);
 
+        //batch.draw(vitinho_hungry_bar_texture, 0, WORLD_HEIGHT/2, WORLD_WIDTH /* Vitinho.vitinho_hungry*/, 5);
+
         // render Button 1
         batch.draw(vitinho_feed_buton_1,  vitinho_feed_buton_1_x_position, vitinho_feed_buton_1_y_position, vitinho_feed_buton_1_width, vitinho_feed_buton_1_height);
         //Conditional to verify if the button 1 was pressed
         if(touched_button(touch_pos, vitinho_feed_buton_1_x_position, vitinho_feed_buton_1_y_position, vitinho_feed_buton_1_width, vitinho_feed_buton_1_height))
         {
-            Vitinho.vitinho_hungry = Vitinho.vitinho_hungry + 10;
+            if (Vitinho.vitinho_hungry<1)
+            {
+                Vitinho.vitinho_hungry += 0.01;
+            }
         }
 
         //render button 2
@@ -128,7 +141,15 @@ class vitinho_feeding implements Screen {
         batch.draw(vitinho_feed_buton_2,  vitinho_feed_buton_2_x_position, vitinho_feed_buton_2_y_position, vitinho_feed_buton_2_width, vitinho_feed_buton_2_height);
         if(touched_button(touch_pos, vitinho_feed_buton_2_x_position, vitinho_feed_buton_2_y_position, vitinho_feed_buton_2_width, vitinho_feed_buton_2_height))
         {
-            Vitinho.vitinho_age = Vitinho.vitinho_age + 10;
+            Vitinho.vitinho_age = Vitinho.vitinho_age + 1;
+        }
+
+        //render button 3
+        //Show vitinho's food supply
+        batch.draw(vitinho_feed_buton_3,  vitinho_feed_buton_3_x_position, vitinho_feed_buton_3_y_position, vitinho_feed_buton_3_width, vitinho_feed_buton_3_height);
+        if(touched_button(touch_pos, vitinho_feed_buton_3_x_position, vitinho_feed_buton_3_y_position, vitinho_feed_buton_3_width, vitinho_feed_buton_3_height))
+        {
+            Vitinho.vitinho_age = Vitinho.vitinho_age + 1;
         }
 
         //hud rendering
@@ -145,7 +166,8 @@ class vitinho_feeding implements Screen {
         font.draw(batch,"DOENCA", hudRightX, hudRow1Y, hudSectionWidth, Align.right, false);
 
         //render second row with values
-        font.draw(batch, String.format(Locale.getDefault(), "%02d", Vitinho.vitinho_hungry), hudLeftX, hudRow2y, hudSectionWidth, Align.left, false);
+
+        batch.draw(vitinho_hungry_bar_texture, 2, hudRow2y_bar, (float) Vitinho.vitinho_hungry * hudSectionWidth  , 5);
         font.draw(batch, String.format(Locale.getDefault(), "%02d", Vitinho.vitinho_age), hudCentreX, hudRow2y, hudSectionWidth, Align.center, false);
         font.draw(batch,String.format(Locale.getDefault(), "%02d", Vitinho.vitinho_diseases), hudRightX, hudRow2y, hudSectionWidth, Align.right, false);
     }

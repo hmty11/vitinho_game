@@ -8,8 +8,8 @@ class Vitinho
     final float WORLD_WIDTH = 72;
     final float WORLD_HEIGHT = 128;
 
-    //Vitinho state
-    static int vitinho_hungry; // 0: not hungry, 3: starving.
+    //Vitinho hungry
+    static double vitinho_hungry = 1; // 0: starving, 1: full.
 
     //Vitinho Age
     static int vitinho_age;
