@@ -118,7 +118,6 @@ class vitinho_feeding implements Screen {
         batch.draw(background,0,0, WORLD_WIDTH,WORLD_HEIGHT);
         //Draw vitinho
         vitinho.draw(batch);
-        //Acquire touch position
         touch_pos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
         //translate the position (pixels) to cartesian coordinates
         camera.unproject(touch_pos);
