@@ -45,6 +45,7 @@ public class main_menu_screen implements Screen
                 Gdx.app.log("MyTag", "my informative message");
                 this.dispose();
                 game.setScreen(new vitinho_feeding());
+                //game.setScreen(new inventory());
             }
         }
         game.batch.end();

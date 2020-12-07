@@ -68,7 +68,7 @@ class vitinho_feeding implements Screen {
 
     vitinho_feeding()
     {
-        this.game = game;
+        this.game = this.game;
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         background = new Texture("mmbg.jpg");
@@ -148,7 +148,7 @@ class vitinho_feeding implements Screen {
         batch.draw(vitinho_feed_buton_3,  vitinho_feed_buton_3_x_position, vitinho_feed_buton_3_y_position, vitinho_feed_buton_3_width, vitinho_feed_buton_3_height);
         if(touched_button(touch_pos, vitinho_feed_buton_3_x_position, vitinho_feed_buton_3_y_position, vitinho_feed_buton_3_width, vitinho_feed_buton_3_height))
         {
-            Vitinho.vitinho_age = Vitinho.vitinho_age + 1;
+            game.setScreen(new inventory());
         }
 
         //hud rendering
