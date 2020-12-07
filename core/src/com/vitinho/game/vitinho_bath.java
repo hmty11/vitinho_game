@@ -16,8 +16,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Locale;
 
+class vitinho_bath implements Screen {
 
-class vitinho_feeding implements Screen {
     vitinho_game_main game;
     //camera
     private Camera camera;
@@ -30,8 +30,7 @@ class vitinho_feeding implements Screen {
     private Texture background;
 //  private Texture[] vitinhos;
 
-    //Vitinho creation
-    Texture vitinho_hungry_bar_texture;
+    Texture vitinho_clean_bar_texture;
     private Vitinho vitinho;
     int vitinho_state = 1;
     int pause = 0;
@@ -39,34 +38,27 @@ class vitinho_feeding implements Screen {
     private final float WORLD_HEIGHT = 128;
     private final float margin = 10;
 
-    //Buttons
-    //int first_touch = 0;
-    //Button 1
-    Texture vitinho_feed_buton_1;
-    float vitinho_feed_buton_1_width = 10;
-    float vitinho_feed_buton_1_height = 10;
-    float vitinho_feed_buton_1_x_position = WORLD_WIDTH/2 - vitinho_feed_buton_1_width/2;
-    float vitinho_feed_buton_1_y_position = WORLD_HEIGHT/20;
+    Texture vitinho_bath_buton_1;
+    float vitinho_bath_buton_1_width = 10;
+    float vitinho_bath_buton_1_height = 10;
+    float vitinho_bath_buton_1_x_position = WORLD_WIDTH/2 - vitinho_bath_buton_1_width/2;
+    float vitinho_bath_buton_1_y_position = WORLD_HEIGHT/20;
 
-    //Button 2
-    Texture vitinho_feed_buton_2;
-    float vitinho_feed_buton_2_width = 10;
-    float vitinho_feed_buton_2_height = 10;
-    float vitinho_feed_buton_2_x_position = WORLD_WIDTH - vitinho_feed_buton_1_width/2 - margin;
-    float vitinho_feed_buton_2_y_position = WORLD_HEIGHT/20;
+    Texture vitinho_bath_buton_2;
+    float vitinho_bath_buton_2_width = 10;
+    float vitinho_bath_buton_2_height = 10;
+    float vitinho_bath_buton_2_x_position = WORLD_WIDTH - vitinho_bath_buton_2_width/2 - margin;
+    float vitinho_bath_buton_2_y_position = WORLD_HEIGHT/20;
 
-    //Button 3
-    Texture vitinho_feed_buton_3;
-    float vitinho_feed_buton_3_width = 10;
-    float vitinho_feed_buton_3_height = 10;
-    float vitinho_feed_buton_3_x_position = WORLD_WIDTH/3 - vitinho_feed_buton_1_width/2 - margin;
-    float vitinho_feed_buton_3_y_position = WORLD_HEIGHT/20;
+    //Water drop texture
+    Texture bath_drop1;
+    int wdrop_move;
 
     //Heads-Up Display
     BitmapFont font;
     float hudVerticalMargin, hudLeftX, hudRightX, hudCentreX, hudRow1Y, hudRow2y, hudRow2y_bar, hudSectionWidth;
 
-    vitinho_feeding()
+    vitinho_bath()
     {
         this.game = game;
         camera = new OrthographicCamera();
@@ -74,13 +66,14 @@ class vitinho_feeding implements Screen {
         background = new Texture("mmbg.jpg");
 
         //set up vitinho
-        vitinho = new Vitinho(0,5,1,0,0,0, vitinho_state, WORLD_WIDTH, WORLD_HEIGHT);
+        vitinho = new Vitinho(0,5,0,0,0,0, 2, WORLD_WIDTH, WORLD_HEIGHT);
         batch = new SpriteBatch();
 
-        vitinho_feed_buton_1 = new Texture("coin.png");
-        vitinho_feed_buton_2 = new Texture("coin.png");
-        vitinho_feed_buton_3 = new Texture("coin.png");
-        vitinho_hungry_bar_texture = new Texture("blank.png");
+        vitinho_bath_buton_1 = new Texture("coin.png");
+        vitinho_bath_buton_2 = new Texture("coin.png");
+        vitinho_clean_bar_texture = new Texture("blank.png");
+        bath_drop1 = new Texture("Waterdrop.png");
+
         prepareHUD();
     }
 
@@ -123,34 +116,32 @@ class vitinho_feeding implements Screen {
         //translate the position (pixels) to cartesian coordinates
         camera.unproject(touch_pos);
 
-        //batch.draw(vitinho_hungry_bar_texture, 0, WORLD_HEIGHT/2, WORLD_WIDTH /* Vitinho.vitinho_hungry*/, 5);
-
         // render Button 1
-        batch.draw(vitinho_feed_buton_1,  vitinho_feed_buton_1_x_position, vitinho_feed_buton_1_y_position, vitinho_feed_buton_1_width, vitinho_feed_buton_1_height);
+        batch.draw(vitinho_bath_buton_1,  vitinho_bath_buton_1_x_position, vitinho_bath_buton_1_y_position, vitinho_bath_buton_1_width, vitinho_bath_buton_1_height);
         //Conditional to verify if the button 1 was pressed
-        if(touched_button(touch_pos, vitinho_feed_buton_1_x_position, vitinho_feed_buton_1_y_position, vitinho_feed_buton_1_width, vitinho_feed_buton_1_height))
+        if(touched_button(touch_pos, vitinho_bath_buton_1_x_position, vitinho_bath_buton_1_y_position, vitinho_bath_buton_1_width, vitinho_bath_buton_1_height))
         {
-            if (Vitinho.vitinho_hungry<1)
+            if (Vitinho.vitinho_clean<1)
             {
-                Vitinho.vitinho_hungry += 0.01;
+                if(wdrop_move < 26)
+                {
+                    wdrop_move++;
+                }
+                else
+                {
+                    wdrop_move = 0;
+                }
+                batch.draw(bath_drop1, 36, 90 - wdrop_move, WORLD_WIDTH/16, WORLD_HEIGHT/16);
+                Vitinho.vitinho_clean += 0.01;
             }
         }
 
         //render button 2
-        //Draw vitinho_feed_buton_2
-        batch.draw(vitinho_feed_buton_2,  vitinho_feed_buton_2_x_position, vitinho_feed_buton_2_y_position, vitinho_feed_buton_2_width, vitinho_feed_buton_2_height);
-        if(touched_button(touch_pos, vitinho_feed_buton_2_x_position, vitinho_feed_buton_2_y_position, vitinho_feed_buton_2_width, vitinho_feed_buton_2_height))
-        {
-            Vitinho.vitinho_age = Vitinho.vitinho_age + 1;
-        }
-
-        //render button 3
-        //Show vitinho's food supply
-        batch.draw(vitinho_feed_buton_3,  vitinho_feed_buton_3_x_position, vitinho_feed_buton_3_y_position, vitinho_feed_buton_3_width, vitinho_feed_buton_3_height);
-        if(touched_button(touch_pos, vitinho_feed_buton_3_x_position, vitinho_feed_buton_3_y_position, vitinho_feed_buton_3_width, vitinho_feed_buton_3_height))
-        {
-            Vitinho.vitinho_age = Vitinho.vitinho_age + 1;
-        }
+       // batch.draw(vitinho_bath_buton_2,  vitinho_bath_buton_2_x_position, vitinho_bath_buton_2_y_position, vitinho_bath_buton_2_width, vitinho_bath_buton_2_height);
+       // if(touched_button(touch_pos, vitinho_bath_buton_2_x_position, vitinho_bath_buton_2_y_position, vitinho_bath_buton_2_width, vitinho_bath_buton_2_height))
+       // {
+       //     Vitinho.vitinho_age = Vitinho.vitinho_age + 10;
+      //  }
 
         //hud rendering
         updateAndRenderHUD();
@@ -161,15 +152,15 @@ class vitinho_feeding implements Screen {
 
     private void updateAndRenderHUD()
     {   //render top row with labels
-        font.draw(batch,"FOME", hudLeftX, hudRow1Y, hudSectionWidth, Align.left, false);
-        font.draw(batch,"IDADE", hudCentreX, hudRow1Y, hudSectionWidth, Align.center, false);
-        font.draw(batch,"DOENCA", hudRightX, hudRow1Y, hudSectionWidth, Align.right, false);
+       // font.draw(batch,"LIMPO", hudLeftX, hudRow1Y, hudSectionWidth, Align.left, false);
+        font.draw(batch,"LIMPO", hudCentreX, hudRow1Y, hudSectionWidth, Align.center, false);
+       // font.draw(batch,"DOENCA", hudRightX, hudRow1Y, hudSectionWidth, Align.right, false);
 
         //render second row with values
 
-        batch.draw(vitinho_hungry_bar_texture, 2, hudRow2y_bar, (float) Vitinho.vitinho_hungry * hudSectionWidth  , 5);
-        font.draw(batch, String.format(Locale.getDefault(), "%02d", Vitinho.vitinho_age), hudCentreX, hudRow2y, hudSectionWidth, Align.center, false);
-        font.draw(batch,String.format(Locale.getDefault(), "%02d", Vitinho.vitinho_diseases), hudRightX, hudRow2y, hudSectionWidth, Align.right, false);
+        batch.draw(vitinho_clean_bar_texture, 24, hudRow2y_bar, (float) Vitinho.vitinho_clean * hudSectionWidth  , 5);
+       // font.draw(batch, String.format(Locale.getDefault(), "%02d", Vitinho.vitinho_age), hudCentreX, hudRow2y, hudSectionWidth, Align.center, false);
+        //font.draw(batch,String.format(Locale.getDefault(), "%02d", Vitinho.vitinho_diseases), hudRightX, hudRow2y, hudSectionWidth, Align.right, false);
     }
 
     private boolean touched_button(Vector3 touch_position,  float x_position, float y_position, float button_width, float button_height)
@@ -184,7 +175,6 @@ class vitinho_feeding implements Screen {
         }
         return false;
     }
-
 
     @Override
     public void resize(int width, int height)

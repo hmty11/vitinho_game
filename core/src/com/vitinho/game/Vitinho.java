@@ -14,6 +14,9 @@ class Vitinho
     //Vitinho Age
     static int vitinho_age;
 
+    //Vitinho Bath
+    static double vitinho_clean = 1; // 0: dirty, 1: clean.
+
     //Vitinho diseases
     static int vitinho_diseases; //need to creat a bunch of diseases.
 
@@ -31,8 +34,9 @@ class Vitinho
     int vitinho_state;
     int vitinho_move;
     private Texture[] vitinhos;
+    private Texture[] bath;
 
-    public Vitinho(int vitinho_hungry, int vitinho_age, int vitinho_diseases, float vitinho_position_x , float vitinho_position_y, int vitinho_state, float screen_width, float screen_height)
+    public Vitinho(int vitinho_hungry, int vitinho_age, int vitinho_clean, int vitinho_diseases, float vitinho_position_x , float vitinho_position_y, int vitinho_state, float screen_width, float screen_height)
     {
         this.vitinho_state = vitinho_state;
         this.vitinho_position_x = vitinho_position_x;
@@ -42,6 +46,7 @@ class Vitinho
         this.vitinho_hungry = vitinho_hungry;
         this.vitinho_age = vitinho_age;
         this.vitinho_diseases = vitinho_diseases;
+        this.vitinho_clean = vitinho_clean;
 
         //case vitinho_state = 1 textures
         vitinhos = new Texture[4];
@@ -74,6 +79,10 @@ class Vitinho
                     }
                 }
                 batch.draw(vitinhos[vitinho_move], screen_width/2 - 10, screen_height/2  - 20, screen_width/4, screen_height/4);
+
+            case 2:
+                batch.draw(vitinhos[3], screen_width/2 - 10, screen_height/2  - 20, screen_width/4, screen_height/4);
+
         }
     }
 }
