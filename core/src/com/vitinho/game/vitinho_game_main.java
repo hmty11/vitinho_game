@@ -5,7 +5,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class vitinho_game_main extends Game
 {
 	vitinho_feeding	vitinho_feeding;
-	vitinho_bath	vitinho_bath;
+	inventory inventory;
+
+
+
 
 	public SpriteBatch batch;
 
@@ -30,7 +33,6 @@ public class vitinho_game_main extends Game
 	public void dispose ()
 	{
 		vitinho_feeding.dispose();
-		vitinho_bath.dispose();
+		inventory.dispose();
 	}
-
 }

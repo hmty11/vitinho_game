@@ -58,6 +58,7 @@ public class main_menu_screen implements Screen
                 Gdx.app.log("MyTag", "my informative message");
                 this.dispose();
                 game.setScreen(new vitinho_feeding());
+                //game.setScreen(new inventory());
             }
         }
         if(Gdx.input.getX() < Gdx.graphics.getWidth()/2 + vitinho_bath_buton_width && Gdx.input.getX() > Gdx.graphics.getWidth()/2 && Gdx.graphics.getHeight() - Gdx.input.getY() < Gdx.graphics.getHeight()/3 + vitinho_bath_buton_height && Gdx.graphics.getHeight() - Gdx.input.getY() >  Gdx.graphics.getHeight()/3)
