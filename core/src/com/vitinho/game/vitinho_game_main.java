@@ -6,8 +6,7 @@ public class vitinho_game_main extends Game
 {
 	vitinho_feeding	vitinho_feeding;
 	inventory inventory;
-
-
+	vitinho_bath vitinho_bath;
 
 
 	public SpriteBatch batch;
@@ -34,5 +33,6 @@ public class vitinho_game_main extends Game
 	{
 		vitinho_feeding.dispose();
 		inventory.dispose();
+		vitinho_bath.dispose();
 	}
 }
