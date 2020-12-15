@@ -2,6 +2,10 @@ package com.vitinho.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import pl.mk5.gdx.fireapp.GdxFIRApp;
+
+
+
 public class vitinho_game_main extends Game
 {
 	vitinho_feeding	vitinho_feeding;
@@ -9,11 +13,13 @@ public class vitinho_game_main extends Game
 	vitinho_bath vitinho_bath;
 
 
+
 	public SpriteBatch batch;
 
 	@Override
 	public void create ()
 	{
+		GdxFIRApp.inst().configure();
 		//Calls vitinho_feeding when app starts, button creation still needed
         //		vitinho_feeding = new vitinho_feeding();
         //		setScreen(vitinho_feeding);

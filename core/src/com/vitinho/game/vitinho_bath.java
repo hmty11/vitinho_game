@@ -16,7 +16,15 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Locale;
 
+import pl.mk5.gdx.fireapp.GdxFIRAnalytics;
+import pl.mk5.gdx.fireapp.GdxFIRAuth;
+import pl.mk5.gdx.fireapp.GdxFIRDatabase;
+import pl.mk5.gdx.fireapp.auth.GdxFirebaseUser;
+
+
+
 class vitinho_bath implements Screen {
+
 
     vitinho_game_main game;
     //camera
@@ -133,6 +141,11 @@ class vitinho_bath implements Screen {
                 }
                 batch.draw(bath_drop1, 36, 90 - wdrop_move, WORLD_WIDTH/16, WORLD_HEIGHT/16);
                 Vitinho.vitinho_clean += 0.01;
+                GdxFIRAuth.inst().signInAnonymously().then(
+                GdxFIRDatabase.inst()
+                        .inReference("/bob-and-john").push()
+                        .setValue("bob")
+                );
             }
         }
 

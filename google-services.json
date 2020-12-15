@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "73155626520",
+    "firebase_url": "https://vitinhogame-61928.firebaseio.com",
+    "project_id": "vitinhogame-61928",
+    "storage_bucket": "vitinhogame-61928.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:73155626520:android:bc41e0c60986f76132656d",
+        "android_client_info": {
+          "package_name": "com.vitinho.game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "73155626520-k7rci94jckbpakpeb4o2t3qng8n9h1v5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6xyBTNoGiUNIBE0Hh9-Gbu7Ihpgavbkc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "73155626520-k7rci94jckbpakpeb4o2t3qng8n9h1v5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

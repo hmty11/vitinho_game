@@ -37,6 +37,8 @@ class vitinho_feeding implements Screen {
     int pause = 0;
     private final float WORLD_WIDTH = 72;
     private final float WORLD_HEIGHT = 128;
+  //  private final float WORLD_WIDTH = Gdx.graphics.getWidth();
+  //  private final float WORLD_HEIGHT = Gdx.graphics.getHeight();
     private final float margin = 10;
 
     //Buttons

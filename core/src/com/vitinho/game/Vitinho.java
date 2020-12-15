@@ -1,12 +1,11 @@
 package com.vitinho.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 class Vitinho
 {
-    final float WORLD_WIDTH = 72;
-    final float WORLD_HEIGHT = 128;
 
     //Vitinho hungry
     static double vitinho_hungry = 1; // 0: starving, 1: full.
@@ -79,10 +78,31 @@ class Vitinho
                     }
                 }
                 batch.draw(vitinhos[vitinho_move], screen_width/2 - 10, screen_height/2  - 20, screen_width/4, screen_height/4);
+                return;
 
             case 2:
                 batch.draw(vitinhos[3], screen_width/2 - 10, screen_height/2  - 20, screen_width/4, screen_height/4);
+                return;
 
+            case 3:
+                if(pause < 8)
+                {
+                    pause++;
+                }
+                else
+                {
+                    pause = 0;
+                    if(vitinho_move < 3)
+                    {
+                        vitinho_move++;
+                    }
+                    else
+                    {
+                        vitinho_move = 0;
+                    }
+                }
+                batch.draw(vitinhos[vitinho_move], screen_width/2 - 200, screen_height/2 - 200, screen_width/4, screen_height/4);
+                return;
         }
     }
 }

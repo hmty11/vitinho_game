@@ -26,13 +26,19 @@ public class main_menu_screen implements Screen
     Texture vitinho_feeding_buton;
     Texture vitinho_bath_buton;
 
+    //Vitinho creation
+    private Vitinho vitinho;
+    int vitinho_state = 3;
+    int pause = 0;
 
     public main_menu_screen(vitinho_game_main game)
     {
+
         this.game = game;
         vitinho_feeding_buton = new Texture("bomb.png");
         vitinho_bath_buton = new Texture("bomb.png");
         background = new Texture("mmbg.jpg");
+        vitinho = new Vitinho(0,5,1,0,0,0, vitinho_state, WORLD_WIDTH, WORLD_HEIGHT);
 
     }
 
@@ -46,10 +52,10 @@ public class main_menu_screen implements Screen
         game.batch.begin();
         //Draw background
         game.batch.draw(background,0,0,WORLD_WIDTH,WORLD_HEIGHT);
+        vitinho.draw(game.batch);
 
-
-        game.batch.draw(vitinho_feeding_buton, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, vitinho_feeding_buton_width, vitinho_feeding_buton_height);
-        game.batch.draw(vitinho_bath_buton, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3, vitinho_bath_buton_width, vitinho_bath_buton_height);
+        game.batch.draw(vitinho_feeding_buton, WORLD_WIDTH/2, WORLD_HEIGHT/2, vitinho_feeding_buton_width, vitinho_feeding_buton_height);
+        game.batch.draw(vitinho_bath_buton, WORLD_WIDTH/2, WORLD_HEIGHT/3, vitinho_bath_buton_width, vitinho_bath_buton_height);
 
         if(Gdx.input.getX() < Gdx.graphics.getWidth()/2 + vitinho_feeding_buton_width && Gdx.input.getX() > Gdx.graphics.getWidth()/2 && Gdx.graphics.getHeight() - Gdx.input.getY() < Gdx.graphics.getHeight()/2 + vitinho_feeding_buton_height && Gdx.graphics.getHeight() - Gdx.input.getY() >  Gdx.graphics.getHeight()/2)
         {

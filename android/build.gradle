@@ -1,4 +1,7 @@
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.firebase.crashlytics'
+
 android {
     buildToolsVersion "30.0.1"
     compileSdkVersion 29
@@ -28,6 +31,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
         }
     }
 }
@@ -93,6 +97,14 @@ task run(type: Exec) {
 dependencies {
     implementation 'com.google.firebase:firebase-database:19.5.1'
     implementation "pl.mk5.gdx-fireapp:gdx-fireapp-android:2.2.1"
+    implementation platform("com.google.firebase:firebase-bom:25.12.0")
+    implementation 'com.google.firebase:firebase-core'
+    implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
+
 }
 
 eclipse.project.name = appName + "-android"
